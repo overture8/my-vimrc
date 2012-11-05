@@ -22,9 +22,11 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'vim-scripts/increment.vim--Natter'
 Bundle 'kien/ctrlp.vim'
 Bundle 'jgdavey/vim-railscasts'
+Bundle 'chrisbra/csv.vim'
 
 " colours
 Bundle 'jgdavey/vim-railscasts'
+Bundle 'jayferd/eco.vim'
 
 set t_Co=256
 :colorscheme railscasts
@@ -59,8 +61,8 @@ syntax on
 map <leader>n :NERDTree<CR>
 
 " Set up command for ctrlp.vim
-map l :CtrlP<CR>
-let g:ctrlp_working_path_mode = 'ra'
+map l :CtrlPMixed<CR>
+"let g:ctrlp_working_path_mode = 'cra'
 set wildignore+=*/tmp/*,*/db/migrate/*,*.so,*.swp,*.zip
 
 " Make backspace work the way it should
