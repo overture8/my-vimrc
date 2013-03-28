@@ -18,11 +18,15 @@ Bundle 'tpope/vim-pathogen'
 Bundle 'tpope/vim-endwise'
 Bundle 'Townk/vim-autoclose'
 Bundle 'tpope/vim-bundler'
-Bundle 'scrooloose/nerdtree'
+"Bundle 'scrooloose/nerdtree'
 Bundle 'vim-scripts/increment.vim--Natter'
 Bundle 'kien/ctrlp.vim'
 Bundle 'jgdavey/vim-railscasts'
 Bundle 'chrisbra/csv.vim'
+Bundle 'vim-scripts/AutoComplPop'
+Bundle 'vim-scripts/grep.vim'
+Bundle 'mileszs/ack.vim'
+Bundle 'SirVer/ultisnips'
 
 " colours
 Bundle 'jgdavey/vim-railscasts'
@@ -80,6 +84,9 @@ map <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloade
 
 " Generate a tags file in the current directory using Exuberant ctags
 map <leader>e :silent :! ctags --recurse --sort=yes;sort tags > tmptags;mv tmptags tags<CR>:exe ":echo 'tags generated'"<CR>
+
+" Ack - Search for word under cursor
+noremap <Leader>a :Ack <cword><cr>
 
 filetype plugin indent on
 
