@@ -25,7 +25,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'vim-scripts/increment.vim--Natter'
 Bundle 'kien/ctrlp.vim'
 Bundle 'chrisbra/csv.vim'
-Bundle 'vim-scripts/AutoComplPop'
+" Bundle 'vim-scripts/AutoComplPop'
 Bundle 'vim-scripts/grep.vim'
 Bundle 'mileszs/ack.vim'
 "Bundle 'SirVer/ultisnips'
@@ -38,7 +38,7 @@ set t_Co=256
 :colorscheme railscasts
 
 " Backup dir
-set backupdir=~/vim_swps
+set backupdir=~/.vim/backups/
 
 " Where swp files are banished to...
 set directory=/tmp
@@ -64,10 +64,12 @@ syntax on
 " let mapleader = "\"
 
 " Set up command for NERDTree
-map <leader>n :NERDTree<CR>
+nmap ,n :NERDTreeFind<CR>
+let NERDTreeQuitOnOpen = 1
+map <Space> <Enter>
 
 " Set up command for ctrlp.vim
-map l :CtrlPMixed<CR>
+nmap ,l :CtrlP<CR>
 "let g:ctrlp_working_path_mode = 'cra'
 set wildignore+=*/tmp/*,*/db/migrate/*,*.so,*.swp,*.zip
 
