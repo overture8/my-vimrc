@@ -2,39 +2,53 @@
 set nocompatible
 filetype off
 
+set encoding=utf-8
+scriptencoding utf-8
 set number
 set showcmd
+set smartcase
+set nowrap
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 " plugins
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'tpope/vim-rails.git'
-Bundle 'tpope/vim-pathogen'
-Bundle 'tpope/vim-endwise'
-Bundle 'Townk/vim-autoclose'
-Bundle 'tpope/vim-bundler'
-Bundle 'scrooloose/nerdtree'
-Bundle 'vim-scripts/increment.vim--Natter'
-Bundle 'kien/ctrlp.vim'
-Bundle 'chrisbra/csv.vim'
-" Bundle 'vim-scripts/AutoComplPop'
-Bundle 'vim-scripts/grep.vim'
-Bundle 'mileszs/ack.vim'
-"Bundle 'SirVer/ultisnips'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'tpope/vim-rails.git'
+Plugin 'tpope/vim-endwise'
+Plugin 'Townk/vim-autoclose'
+Plugin 'tpope/vim-bundler'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+"Plugin 'kien/ctrlp.vim'
+Plugin 'thoughtbot/pick.vim'
+Plugin 'dsawardekar/ember.vim'
+Plugin 'chrisbra/csv.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'fatih/vim-go'
+Plugin 'wting/rust.vim'
+Plugin 'lambdatoast/elm.vim'
+Plugin 'jtratner/vim-flavored-markdown'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'hlissner/vim-forrestgump'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'rizzatti/dash.vim'
+Plugin 'itchyny/lightline.vim'
+"Plugin 'neilagabriel/vim-geeknote'
 
 " colours
-Bundle 'jgdavey/vim-railscasts'
-Bundle 'jayferd/eco.vim'
+Plugin 'jgdavey/vim-railscasts'
+Plugin 'chriskempson/base16-vim'
+Plugin 'jayferd/eco.vim'
 
 set t_Co=256
+let base16colorspace=256  " Access colors present in 256 colorspace
 :colorscheme railscasts
 
 " Backup dir
@@ -53,7 +67,7 @@ set shiftwidth=2
 set autoindent
 set expandtab
 set backspace=start,indent
-set laststatus=0
+set laststatus=2
 
 " Turn on highlighted search and syntax highlighting
 set hlsearch
@@ -69,9 +83,12 @@ let NERDTreeQuitOnOpen = 1
 map <Space> <Enter>
 
 " Set up command for ctrlp.vim
-nmap ,l :CtrlP<CR>
+" nmap ,l :CtrlP<CR>
 "let g:ctrlp_working_path_mode = 'cra'
-set wildignore+=*/tmp/*,*/db/migrate/*,*.so,*.swp,*.zip
+" set wildignore+=*/tmp/*,*/db/migrate/*,*.so,*.swp,*.zip,*/vendor/,*/packages/*,*/.meteor/*,*/bower_components/*,*/node_modules/*
+
+" Pick config
+nmap ,l :call PickFile()<CR>
 
 " Make backspace work the way it should
 set backspace=2
@@ -86,6 +103,12 @@ set ignorecase
 map <leader>v :sp ~/.vimrc<CR>
 map <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
+" EasyMotion config
+nmap f <Plug>(easymotion-s)
+
+" Dash config
+nmap <leader>d <Plug>DashSearch
+
 " Generate a tags file in the current directory using Exuberant ctags
 map <leader>e :silent :! ctags --recurse --sort=yes;sort tags > tmptags;mv tmptags tags<CR>:exe ":echo 'tags generated'"<CR>
 
@@ -94,7 +117,44 @@ noremap <Leader>a :Ack <cword><cr>
 
 filetype plugin indent on
 
+vmap <C-x> :!pbcopy<CR>
+vmap <C-c> :w !pbcopy<CR><CR>
+
+" Github flavoured markdown
+augroup markdown
+  au!
+  au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup END
+
 " set cursorline
 ":hi CursorLine   cterm=NONE ctermbg=black ctermfg=white guibg=darkred guifg=white
 ":hi CursorColumn cterm=NONE ctermbg=black ctermfg=white guibg=darkred guifg=white
 ":nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+
+" Emmet Config
+imap hh <C-y>,
+
+" lightline config
+" NOTE: Install fonts from here for this to work
+" https://github.co
+m/powerline/fonts
+" then set terminal to use Source Code Pro font
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component': {
+      \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+      \ },
+      \ 'component_visible_condition': {
+      \   'readonly': '(&filetype!="help"&& &readonly)',
+      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
