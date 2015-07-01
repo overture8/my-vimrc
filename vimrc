@@ -4,7 +4,7 @@ filetype off
 
 set encoding=utf-8
 scriptencoding utf-8
-set number
+"set number
 set showcmd
 set smartcase
 set nowrap
@@ -40,16 +40,20 @@ Plugin 'hlissner/vim-forrestgump'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'rizzatti/dash.vim'
 Plugin 'itchyny/lightline.vim'
-"Plugin 'neilagabriel/vim-geeknote'
+Plugin 'thoughtbot/vim-rspec'
+Plugin 'yegappan/mru'
+Plugin 'wellbredgrapefruit/tomdoc.vim'
 
 " colours
 Plugin 'jgdavey/vim-railscasts'
+Plugin 'morhetz/gruvbox'
 Plugin 'chriskempson/base16-vim'
 Plugin 'jayferd/eco.vim'
 
 set t_Co=256
 let base16colorspace=256  " Access colors present in 256 colorspace
-:colorscheme railscasts
+set background=dark    " Setting dark mode
+:colorscheme gruvbox
 
 " Backup dir
 set backupdir=~/.vim/backups/
@@ -115,6 +119,9 @@ map <leader>e :silent :! ctags --recurse --sort=yes;sort tags > tmptags;mv tmpta
 " Ack - Search for word under cursor
 noremap <Leader>a :Ack <cword><cr>
 
+" Most recently used files
+nmap ,m :MRU<CR>
+
 filetype plugin indent on
 
 vmap <C-x> :!pbcopy<CR>
@@ -134,10 +141,15 @@ augroup END
 " Emmet Config
 imap hh <C-y>,
 
+" RSpec config
+map <Leader>a :call RunAllSpecs()<CR>
+map <Leader>aa :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+
 " lightline config
 " NOTE: Install fonts from here for this to work
-" https://github.co
-m/powerline/fonts
+" https://github.com/powerline/fonts
 " then set terminal to use Source Code Pro font
 let g:lightline = {
       \ 'colorscheme': 'jellybeans',
